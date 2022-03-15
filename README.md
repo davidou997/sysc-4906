@@ -6,6 +6,11 @@ to determine the differences between the characteristics that
 encompasses a modal Canadian and average Canadian, and the
 changes to the difference over time.
 
+Currently, the data comes from the following link:
+https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/dt-td/Rp-eng.cfm?TABID=2&Lang=E&APATH=3&DETAIL=0&DIM=0&FL=A&FREE=0&GC=0&GID=1235709&GK=0&GRP=1&PID=110185&PRID=10&PTYPE=109445&S=0&SHOWALL=0&SUB=0&Temporal=2016&THEME=119&VID=0&VNAMEE=&VNAMEF=&D1=0&D2=0&D3=0&D4=0&D5=0&D6=0
+
+The file from the link above must be inside the data/raw folder. To run the cleaning process, run the script inside process_raw_household.py. The resultant CSV files will be inside the data/processed folder.
+
 Project Organization
 ------------
 
