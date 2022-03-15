@@ -1,7 +1,10 @@
 Modal Canadian
 ==============================
 
-TBA
+The project will analyze Canadian census data
+to determine the differences between the characteristics that
+encompasses a modal Canadian and average Canadian, and the
+changes to the difference over time.
 
 Project Organization
 ------------
