@@ -6,10 +6,7 @@ to determine the differences between the characteristics that
 encompasses a modal Canadian and average Canadian, and the
 changes to the difference over time.
 
-Currently, the data comes from the following link:
-https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/dt-td/Rp-eng.cfm?TABID=2&Lang=E&APATH=3&DETAIL=0&DIM=0&FL=A&FREE=0&GC=0&GID=1235709&GK=0&GRP=1&PID=110185&PRID=10&PTYPE=109445&S=0&SHOWALL=0&SUB=0&Temporal=2016&THEME=119&VID=0&VNAMEE=&VNAMEF=&D1=0&D2=0&D3=0&D4=0&D5=0&D6=0
-
-The file from the link above must be inside the data/raw folder. To run the cleaning process, run the script inside process_raw_household.py. The resultant CSV files will be inside the data/processed folder.
+Currently, the data comes from the PUMF files from Carleton University's access of the <odesi> (Ontario Data Documentation, Extraction Service and Infrastructure) database. The data that is currently being used are the PUMF census files from 1996, 2001, 2006, and 2016. Unfortunately, the PUMF census files for 2011 were not available and the PUMF census files for 2021 will not be fully released by the deadline of this project.
 
 Project Organization
 ------------
@@ -58,6 +55,13 @@ Project Organization
     │       └── visualize.py
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+
+Cleaning Instructions
+---
+The cleaning process will clean a CSV file in the data/raw folder and export the results as a CSV file in the data/processed folder. The raw CSV files will need to be placed into the data/raw folder to begin with. To clean the raw CSV data in the data/raw folder:
+1. Navigate to the src/data folder of the local repository via a terminal
+2. Run the following command ```python clean.py [raw_filename] [cleaned_filename]```. Replace ```[raw_filename]``` with the filename of the raw CSV file and ```[cleaned_filename]``` with the name of the exported cleaned CSV file, both without the square brackets. For example, ```python clean.py 2016_raw.csv 2016_cleaned.csv``` would clean the data in a file called 2016_raw.csv and export the cleaned data in to CSV file called 2016_cleaned.csv in the data/processed folder. 
+
 
 Columns of Cleaned Data
 ---
