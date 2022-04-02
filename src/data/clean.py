@@ -156,7 +156,7 @@ def extract_age(loaded_df):
 def extract_sex(loaded_df):
     """
     Extracts the sex of each row. The coded values are as follows:
-    1 -  Male
+    1 - Male
     2 - Female
     :param loaded_df: The dataframe loaded from the file
     :return: A list containing the sex values
@@ -234,7 +234,7 @@ def extract_house_income(loaded_df):
     2 - 25k to 49,999
     3 - 50k to 74,999
     4 - 75k to 99,999
-    5 - Over 100k
+    5 - 100k and over
     :param loaded_df: The dataframe loaded from the file
     :return: A list containing the new values of the household income
     """
@@ -349,13 +349,13 @@ def extract_ind_income(loaded_df):
     """
     Extracts the individual income of each row. The coded values are the following:
     -1 - Invalid value
+    0 - Not applicable (the person is under 15 years of age)
     1 - Less than 0 (net loss)
     2 - 0 to 24,999
     3 - 25k to 49,999
     4 - 50k to 74,999
     5 - 75k to 99,999
     6 - Over 100k
-    7 - Not applicable (the person is under 15 years of age)
     :param loaded_df: The dataframe loaded from the file
     :return: A list containing the new values of the individual income
     """
@@ -393,7 +393,7 @@ def extract_ind_income(loaded_df):
         elif ind_inc <= max_val:  # over 100k
             ind_incs.append(6)
         elif ind_inc == 99999999:  # the person is under 15 years of age
-            ind_incs.append(7)
+            ind_incs.append(0)
         else:  # invalid value
             ind_incs.append(-1)
 
@@ -579,7 +579,13 @@ def extract_ethnic(loaded_df):
     """
     Extracts the ethnic origins of each row. The coded values are the following:
     -1 - Invalid value
-    1 -
+    1 - European
+    2 - Middle Eastern
+    3 - South Asian
+    4 - East Asian
+    5 - African/South American
+    6 - Multiple origins
+    7 - Aboriginal
     :param loaded_df: The dataframe loaded from the file
     :return: A list containing the new values of the ethnic origins
     """
@@ -587,6 +593,7 @@ def extract_ethnic(loaded_df):
     ethnics = []
     columns = loaded_df.columns
     col_name = ""
+    num_unique = 0
 
     print('Extracting Ethnic Origins')
 
@@ -600,8 +607,78 @@ def extract_ethnic(loaded_df):
         print('No Citizenship Status column Detected')
         sys.exit(0)
 
+    num_unique = loaded_df[col_name].nunique()
+
     for ethnic in loaded_df[col_name].tolist():
-        ethnics.append('temp')
+        if col_name == "ETHDER":
+            if num_unique == 49:
+                if ethnic == 40 or 4 <= ethnic <= 23 or 34 <= ethnic <= 36:  # European
+                    ethnics.append(1)
+                elif ethnic == 28:  # Middle Eastern
+                    ethnics.append(2)
+                elif ethnic in [29, 30]:  # South Asian
+                    ethnics.append(3)
+                elif 31 <= ethnic <= 33:  # East Asian
+                    ethnics.append(4)
+                elif 24 <= ethnic <= 27:  # African/South American
+                    ethnics.append(5)
+                elif ethnic in [2, 3] or 37 <= ethnic <= 39 or 41 <= ethnic <= 48:  # Multiple origins
+                    ethnics.append(6)
+                elif ethnic == 1:  # Aboriginal
+                    ethnics.append(7)
+                else:
+                    ethnics.append(-1)
+            else:
+                if 4 <= ethnic <= 9 or 13 <= ethnic <= 25 or 27 <= ethnic <= 13:  # European
+                    ethnics.append(1)
+                elif ethnic == 32 or 34 <= ethnic <= 36:  # Middle Eastern
+                    ethnics.append(2)
+                elif ethnic == 37 or ethnic == 38:  # South Asian
+                    ethnics.append(3)
+                elif 39 <= ethnic <= 43:  # East Asian
+                    ethnics.append(4)
+                elif 10 <= ethnic <= 12 or ethnic == 33:  # African/South American
+                    ethnics.append(5)
+                elif ethnic in [1, 2, 51] or 44 <= ethnic <= 46:  # Multiple origins
+                    ethnics.append(6)
+                elif 47 <= ethnic <= 50:  # Aboriginal
+                    ethnics.append(7)
+                else:  # invalid value
+                    ethnics.append(-1)
+        elif col_name == 'ETHNICRA':
+            if 2 <= ethnic <= 13 or 22 <= ethnic <= 28:  # European
+                ethnics.append(1)
+            elif ethnic in [14, 16, 30, 31]:  # Middle Eastern
+                ethnics.append(2)
+            elif ethnic in [17, 32]:  # South Asian
+                ethnics.append(3)
+            elif 18 <= ethnic <= 21 or ethnic == 33:  # East Asian
+                ethnics.append(4)
+            elif ethnic in [15, 29, 34, 35]:  # African/South American
+                ethnics.append(5)
+            elif 37 <= ethnic <= 40 or ethnic in [1, 37, 45]:  # Multiple origins
+                ethnics.append(6)
+            elif ethnic == 36 or 41 <= ethnic <= 44:  # Aboriginal
+                ethnics.append(7)
+            else:  # invalid values
+                ethnics.append(-1)
+        else:
+            if 1 <= ethnic <= 13 or ethnic in [15, 30, 31, 35, 44]:  # European
+                ethnics.append(1)
+            elif ethnic == 14 or 17 <= ethnic <= 19:  # Middle Eastern
+                ethnics.append(2)
+            elif ethnic == 20:  # South Asian
+                ethnics.append(3)
+            elif ethnic == 45 or 21 <= ethnic <= 24:  # East Asian
+                ethnics.append(4)
+            elif ethnic in [16, 25, 26, 46]:  # African/South American
+                ethnics.append(5)
+            elif 32 <= ethnic <= 34 or 36 <= ethnic <= 43 or ethnic in [28, 29, 47]:  # Multiple origin
+                ethnics.append(6)
+            elif ethnic == 27:  # Aboriginal
+                ethnics.append(7)
+            else:
+                ethnics.append(-1)
 
     print('Ethnic Origins extracted')
 
@@ -825,7 +902,7 @@ def extract_emp_stat(loaded_df):
     """
     Extracts the employment status of each row. The coded values are the following:
     -1 - Invalid value
-    0 - Sample is under the age of 15
+    0 - Not applicable (the sample is under the age of 15)
     1 - Employed
     2 - Unemployed
     3 - Not in workforce
