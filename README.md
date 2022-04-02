@@ -148,7 +148,13 @@ Represents the place of birth of the sample. The values of this column are as fo
 ### ETHN
 
 Represents the ethnic and cultural origins of the sample. The values of this column are as follows:
-TODO
+- 1: European
+- 2: Middle Eastern
+- 3: South Asian
+- 4: East Asian
+- 5: African/South American
+- 6: Multiple origins
+- 7: Aboriginal
 
 ### CITZ_SHIP
 
