@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 
-
 def read_file():
     """
     Reads the CSV file taken from the following document: "Household Total Income Groups (22) in Constant (2015)
@@ -19,7 +18,6 @@ def read_file():
     print("Converting to Dataframe...")
     df = pd.concat(raw, ignore_index=True)
     return df
-
 
 def get_canada_rows_raw(df):
     """
@@ -78,8 +76,6 @@ def filter_canada(canada_only):
     canada_filtered["Household Income"] = canada_only["DIM: Household total income groups (22)"]
     canada_filtered["Value in 2015"] = canada_only["Dim: Year (2): Member ID: [1]: 2015 (Note: 4)"]
     canada_filtered["Value in 2005"] = canada_only["Dim: Year (2): Member ID: [2]: 2005 (Note: 5)"]
-
-    canada_filtered = canada_filtered[~canada_filtered['Number of Earners in Household'].str.contains('1 earner or more')]
     return canada_filtered
 
 
@@ -105,32 +101,14 @@ def separate_totals(canada_filtered):
     return no_total, by_totals
 
 
-def read_no_totals():
-    path = os.path.dirname(__file__) + '\\..\\..\\data\\processed\\Canada - Processed, No Totals.csv'
-    chunk_size = 10 ** 6
-    no_totals_raw = pd.read_csv(path, chunksize=chunk_size)
-    no_totals = pd.concat(no_totals_raw, ignore_index=True)
-    # household_types = no_totals['Household Type'].unique()
-    ages_range_types = no_totals['Ages Range Category'].unique()
-
-    # print(len(household_types) * len(ages_range_types))
-
-    census_families = no_totals[no_totals['Household Type'].str.contains('Census family households')]
-    for ages_range_type in ages_range_types:
-        temp = census_families[census_families['Ages Range Category'].str.contains(ages_range_type)]
-        row = temp[temp['Value in 2015'] == temp['Value in 2015'].max()]
-        print(row)
-
-
 if __name__ == "__main__":
-    # raw_df = read_file()  # Get Raw
-    # canada_raw = get_canada_rows_raw(raw_df)  # Remove non-Canada totals
-    # canada_filter = filter_canada(canada_raw)
-    # no_totals, by_totals = separate_totals(canada_filter)
-    #
-    # path = os.path.dirname(__file__) + '\\..\\..\\data\\processed\\'
-    #
-    # no_totals.to_csv(path + "Canada - Processed, No Totals.csv")
-    # for key in by_totals.keys():
-    #     by_totals[key].to_csv(path + "Canada - Processed, Totals of " + key + ".csv")
-    read_no_totals()
+    raw_df = read_file()  # Get Raw
+    canada_raw = get_canada_rows_raw(raw_df)  # Remove non-Canada totals
+    canada_filter = filter_canada(canada_raw)
+    no_totals, by_totals = separate_totals(canada_filter)
+
+    path = os.path.dirname(__file__) + '\\..\\..\\data\\processed\\'
+
+    no_totals.to_csv(path + "Canada - Processed, No Totals.csv")
+    for key in by_totals.keys():
+        by_totals[key].to_csv(path + "Canada - Processed, Totals of " + key + ".csv")
