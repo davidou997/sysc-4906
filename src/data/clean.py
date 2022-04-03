@@ -946,7 +946,8 @@ def load_file(filename):
     :param filename: The name of the file to be loaded from the data/raw folder
     :return: A dataframe of the loaded csv file
     """
-    path = os.path.dirname(os.path.realpath(__file__)) + '\\..\\..\\data\\raw\\' + filename
+    path = os.path.dirname(os.path.realpath(__file__)) + '/../../data/raw/' + filename
+
     if not os.path.exists(path):
         print(f'There is no file name "{filename}" in the data/raw folder.')
         sys.exit(0)
@@ -969,7 +970,7 @@ def export_file(cleaned_df, export_name):
     :param export_name: The name of the exported file
     :return: None
     """
-    path = os.path.dirname(os.path.realpath(__file__)) + '\\..\\..\\data\\processed\\' + export_name
+    path = os.path.dirname(os.path.realpath(__file__)) + '/../../data/processed/' + export_name
 
     print(f'Exporting to file {export_name}')
 
