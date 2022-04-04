@@ -10,6 +10,8 @@ Currently, the data comes from the PUMF files from Carleton University's access 
     
 The presentation slides for this project are in the following link: https://docs.google.com/presentation/d/1Gda6rAFPzoUPx7I8s3N4Cy_P3h3CphETC7YsCgTa8Xg/edit?usp=sharing
 
+The raw data requires authorization to the odesi database via Carleton University. The Google drive link to the cleaned data is as follows: https://drive.google.com/file/d/1e7YycdzXg0eMe51v6ZnPQpYBlqpPkISp/view?usp=sharing
+    
 Project Organization
 ------------
 
