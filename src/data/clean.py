@@ -27,10 +27,10 @@ def clean(filename, export_name):
     extracted_dict['WEIGHT'] = extract_weight(loaded)
     extracted_dict['AGE'] = extract_age(loaded)
     extracted_dict['SEX'] = extract_sex(loaded)
-    extracted_dict['MART_STAT'] = extract_sex(loaded)
+    extracted_dict['MART_STAT'] = extract_marital(loaded)
     extracted_dict['HOUS_INC'] = extract_house_income(loaded)
     extracted_dict['HOUS_SIZ'] = extract_house_size(loaded)
-    extracted_dict['IND_INC'] = extract_house_size(loaded)
+    extracted_dict['IND_INC'] = extract_ind_income(loaded)
     extracted_dict['OFF_LANG'] = extract_official_lang(loaded)
     extracted_dict['HOME_LANG'] = extract_home_lang(loaded)
     extracted_dict['POB'] = extract_pob(loaded)
@@ -209,14 +209,16 @@ def extract_marital(loaded_df):
         print("No Marital Status Column Detected")
         sys.exit(0)
 
-    single_cats = [1, 3, 4, 5]
+    single_cats = [1, 4, 5]
+    married = [2, 3]
     if col_name == "MarStH":
-        single_cats = [1, 3, 4, 5, 6]
+        single_cats = [1, 3, 5, 6]
+        married = [2, 4]
 
     for mart_stat in loaded_df[col_name].tolist():
         if mart_stat in single_cats:  # Single
             mart_stats.append(1)
-        elif mart_stat == 2:  # Married
+        elif mart_stat in married:  # Married
             mart_stats.append(2)
         else:
             mart_stats.append(-1)  # Not available
