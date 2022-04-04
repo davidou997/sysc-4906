@@ -7,6 +7,8 @@ encompasses a modal Canadian and average Canadian, and the
 changes to the difference over time.
 
 Currently, the data comes from the PUMF files from Carleton University's access of the <odesi> (Ontario Data Documentation, Extraction Service and Infrastructure) database. The data that is currently being used are the PUMF census files from 1996, 2001, 2006, and 2016. Unfortunately, the PUMF census files for 2011 were not available and the PUMF census files for 2021 will not be fully released by the deadline of this project.
+    
+The presentation slides for this project are in the following link: https://docs.google.com/presentation/d/1Gda6rAFPzoUPx7I8s3N4Cy_P3h3CphETC7YsCgTa8Xg/edit?usp=sharing
 
 Project Organization
 ------------
